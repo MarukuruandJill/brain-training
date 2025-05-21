@@ -2,13 +2,6 @@ import Button from "@/components/Button";
 import { router } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 
-// export const options = {
-//     title: 'Home',
-//     headerStyle: { backgroundColor: '#f4511e' },
-//     headerTintColor: '#fff',
-//     headerTitleStyle: { fontWeight: 'bold' },
-// };
-
 export default function Home() {
     return (
         <View
