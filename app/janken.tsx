@@ -1,4 +1,5 @@
 import Button from "@/components/Button";
+import { router } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
@@ -132,6 +133,7 @@ export default function Janken() {
             setQuestionIndex((prev) => prev + 1);
         } else {
             alert("終了！あなたのスコアは " + score + " 点です");
+            router.replace('/')
         }
     }
 
