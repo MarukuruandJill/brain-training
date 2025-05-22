@@ -115,37 +115,64 @@ export default function Janken() {
     const questions: question[] = createQuestions();
     const [score, setScore] = useState(0);
     const [questionIndex, setQuestionIndex] = useState(0);
+    const [showquestion, setShowquestion] = useState(true);
+    const [check, setCheck] = useState("正解！");
+    const [lastquestion, setLastquestion] = useState(false);
     let question: question = questions[questionIndex];
     let prompt: string = question.prompt;
     let hand: string = question.hand;
 
     const countScore = (prompt: string, hand: string, label: string) => {
         if (assertAnswer(prompt, hand, label) === "正解！") {
-            alert("正解！");
             setScore((prevScore) => prevScore + 5);
+            setShowquestion(() => false);
+            setCheck(() => "正解！");
         }
         else {
-            alert("不正解！");
             setScore((prevScore) => prevScore);
+            setShowquestion(() => false);
+            setCheck(() => "不正解！");
         }
 
         if (questionIndex < questions.length - 1) {
             setQuestionIndex((prev) => prev + 1);
         } else {
-            alert("終了！あなたのスコアは " + score + " 点です");
-            router.replace('/')
+            setLastquestion(() => true);
         }
     }
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.prompt_text}>{prompt}</Text>
-            <Text style={styles.hand_text}>{hand}</Text>
-            <Button label="グー" onPress={() => countScore(prompt, hand, "グー")}/>
-            <Button label="チョキ" onPress={() => countScore(prompt, hand, "チョキ")}/>
-            <Button label="パー" onPress={() => countScore(prompt, hand, "パー")}/>
+    const changeToQuestion = () => {
+        setShowquestion(() => true);
+    }
+
+    if (lastquestion) {
+        const show_score = "あなたのスコアは" + score + "点です";
+        return (
+            <View style={styles.container}>
+                <Text style={styles.prompt_text}>終了!</Text>
+                <Text style={styles.prompt_text}>{ show_score }</Text>
+                <Button label="ホームに戻る" onPress={() => router.push("/")}/>
+                <Button label="もう1度" onPress={() => router.push("/janken")} />
+            </View>
+        )
+    }else if (showquestion){
+        return (
+            <View style={styles.container}>
+                <Text style={styles.prompt_text}>{prompt}</Text>
+                <Text style={styles.hand_text}>{hand}</Text>
+                <Button label="グー" onPress={() => countScore(prompt, hand, "グー")}/>
+                <Button label="チョキ" onPress={() => countScore(prompt, hand, "チョキ")}/>
+                <Button label="パー" onPress={() => countScore(prompt, hand, "パー")}/>
+            </View>
+        )
+    } else {
+        return (
+            <View style={styles.container}>
+            <Text style={styles.prompt_text}>{check}</Text>
+            <Button label="次の問題へ" onPress={() => changeToQuestion()}/>
         </View>
-    )
+        )
+    }
 }
 
 const styles = StyleSheet.create({
