@@ -117,7 +117,8 @@ export default function Janken() {
     const [questionIndex, setQuestionIndex] = useState(0);
     const [showquestion, setShowquestion] = useState(true);
     const [check, setCheck] = useState("正解！");
-    const [lastquestion, setLastquestion] = useState(false);
+    const [isLastQuestion, setIsLastQuestion] = useState(false);
+    const [isBeforeStart, setIsBeforeStart] = useState(true);
     let question: question = questions[questionIndex];
     let prompt: string = question.prompt;
     let hand: string = question.hand;
@@ -137,7 +138,7 @@ export default function Janken() {
         if (questionIndex < questions.length - 1) {
             setQuestionIndex((prev) => prev + 1);
         } else {
-            setLastquestion(() => true);
+            setIsLastQuestion(() => true);
         }
     }
 
@@ -145,7 +146,20 @@ export default function Janken() {
         setShowquestion(() => true);
     }
 
-    if (lastquestion) {
+    const startQuestion = () => {
+        setIsBeforeStart(() => false);
+    }
+
+    if (isBeforeStart) {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.prompt_text}>ボタンを押して開始</Text>
+                <Button label="開始" onPress={() => startQuestion()}/>
+            </View>
+        )
+    }
+
+    if (isLastQuestion) {
         const show_score = "あなたのスコアは" + score + "点です";
         return (
             <View style={styles.container}>
