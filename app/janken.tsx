@@ -174,9 +174,9 @@ export default function Janken() {
             <View style={styles.container}>
                 <Text style={styles.prompt_text}>{prompt}</Text>
                 <Text style={styles.hand_text}>{hand}</Text>
-                <Button label="グー" onPress={() => countScore(prompt, hand, "グー")}/>
-                <Button label="チョキ" onPress={() => countScore(prompt, hand, "チョキ")}/>
-                <Button label="パー" onPress={() => countScore(prompt, hand, "パー")}/>
+                <Button label="グー" style={styles.rock_button}  onPress={() => countScore(prompt, hand, "グー")}/>
+                <Button label="チョキ" style={styles.scissors_button} onPress={() => countScore(prompt, hand, "チョキ")}/>
+                <Button label="パー" style={styles.paper_button} onPress={() => countScore(prompt, hand, "パー")}/>
             </View>
         )
     } else {
@@ -200,5 +200,32 @@ const styles = StyleSheet.create({
     },
     hand_text: {
         fontSize: 40,
+    },
+    rock_button: {
+        borderRadius: 10,
+        width: '100%',
+        height: '100%',
+        alignItems: "center",
+        justifyContent: 'center',
+        flexDirection: 'row',
+        backgroundColor: 'red',
+    },
+    paper_button: {
+        borderRadius: 10,
+        width: '100%',
+        height: '100%',
+        alignItems: "center",
+        justifyContent: 'center',
+        flexDirection: 'row',
+        backgroundColor: 'blue',
+    },
+    scissors_button: {
+        borderRadius: 10,
+        width: '100%',
+        height: '100%',
+        alignItems: "center",
+        justifyContent: 'center',
+        flexDirection: 'row',
+        backgroundColor: 'yellow',
     }
 });

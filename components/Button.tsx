@@ -1,14 +1,16 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 
 type Props = {
     label: string;
+    style?: StyleProp<ViewStyle>;
     onPress?: () => void;
 }
-export default function Button({ label, onPress }: Props) {
+export default function Button({ label, style, onPress }: Props) {
     const onPress_func = onPress ?? (() => alert("button pressed"));
+    const button_style = style ?? styles.button;
     return (
         <View style={styles.buttonContainer}>
-            <Pressable style={styles.button} onPress={onPress_func}>
+            <Pressable style={button_style} onPress={onPress_func}>
                 <Text style={styles.buttonLabel}>{label}</Text>
             </Pressable>
         </View>
